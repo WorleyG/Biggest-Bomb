@@ -1,5 +1,14 @@
+var searchResult = [];
+var actorId = 0;
+
 function successCB(data) {
-    console.log("Success callback: " + data);
+		var dataResult = JSON.parse(data);
+		console.log(dataResult);
+		
+		alert(dataResult.results[0]["id"]);
+		actorId = dataResult.results[0]["id"]
+		
+		$("#resultPanel").append(actorId);
 };
 
 function errorCB(data) {
@@ -14,8 +23,10 @@ $(document).ready(function(){
 	//search
 	$("#submit").click(function(){
 		var input = $("#userInput").val();
-		var result = theMovieDb.search.getPerson({"query": input}, successCB, errorCB);
-		$("p").append();
+		//var result = theMovieDb.search.getPerson({"query": input}, successCB, errorCB);
+		theMovieDb.search.getPerson({"query":"Brad%20Pitt"}, successCB, errorCB);
+
+
 		$("#resultPanel").show();
 	});
 })
