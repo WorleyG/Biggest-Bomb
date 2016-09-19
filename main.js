@@ -1,11 +1,16 @@
 function successCB(data) {
 		var dataResult = JSON.parse(data);
-		console.log(dataResult);
-		
+		//console.log(dataResult);
 		actorId = dataResult.results[0]["id"];
-		$("#actor").append(actorId);
-		return actorId;
+		theMovieDb.people.getMovieCredits({"id":actorId}, idSuccessCB, errorCB);
 };
+
+function idSuccessCB(data){
+		var idResult = JSON.parse(data);
+		console.log(idResult);
+};
+
+
 
 function errorCB(data) {
             console.log("Error callback: " + data);
@@ -18,7 +23,7 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 		$("#resultPanel").show();
 		var input = $("#userInput").val();
-		var taco = theMovieDb.search.getPerson({"query":"Brad%20Pitt"}, successCB, errorCB);
+		theMovieDb.search.getPerson({"query":input}, successCB, errorCB);
 	});
 });
 
